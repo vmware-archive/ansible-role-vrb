@@ -36,7 +36,7 @@
     '--prop:itfm_root_password={{vrealizeb_itfm_root_password }}'
     '--prop:itfm_ssh_enabled={{ vrb_ssh_enabled }}'
     '--prop:vami.gateway.vRealize_Business_Standard={{ vrb_gateway_address }}'
-    '--prop:vami.DNS.vRealize_Business_Standard={{ vrb_dns_address }'
+    '--prop:vami.DNS.vRealize_Business_Standard={{ vrb_dns_address }}'
     '--prop:vami.ip0.vRealize_Business_Standard={{ vrb_ip_address }}'
     '--prop:vami.netmask0.vRealize_Business_Standard={{ vrb_ip_netmask }}'
     '{{vrealizeb_ova_location }}/{{vrealizeb_ova}}'
