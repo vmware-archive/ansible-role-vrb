@@ -14,7 +14,15 @@
 #  limitations under the License.
 #
 ---
-- name: deploy VIO OVA
+- name: Check if vrb already exists
+  does_vm_exist:
+    vcenter_host: "{{ mgmt_vc }}"
+    vcenter_user: "{{ mgmt_vc_username }}"
+    vcenter_password: "{{ mgmt_vc_password }}"
+    vcenter_port: "{{ mgmt_vc_port }}"
+    vm_name: "{{ vrealizeb_name }}"
+
+- name: deploy VRB OVA
   shell: >
     {{ ovftool }}
     '--name={{ vrealizeb_name }}'
@@ -27,7 +35,7 @@
     '--network={{vrealizeb_network}}'
     '--prop:itfm_root_password={{vrealizeb_itfm_root_password }}'
     '{{vrealizeb_ova_location }}/{{vrealizeb_ova}}'
-    'vi://{{ vcenter_user | urlencode }}:{{ vcenter_password | urlencode }}@{{ vcenter_host }}:443/{{ datacenter_name }}/host/{{ vrealizeb_cluster }}'
+    'vi://{{ mgmt_vc_username | urlencode }}:{{ mgmt_vc_password | urlencode }}@{{ mgmt_vc }}:443/{{ mgmt_vc_datacenter }}/host/{{ mgmt_vc_cluster }}'
   tags:
     - ova
   register: ovf_status
