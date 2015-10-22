@@ -13,9 +13,18 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 #
----
-- name: depoloy vRealize Business  OVA
-  include: vrealizebova_deploy.yml tags=vrbova_deploy
+- name: create sso request
+  template:
+    src: sso_request_body.xml
+    dest: "{{ sso_request_body_file }}"
 
-- name: configure vRB SSO
-  include: vrealizeb_sso.yml tags=vrb_sso
+- name: set admin password
+  uri:
+    url: https://{{ vrb_node_ip }}:5480/service/sso/configure-page.py
+    method: POST
+    user: "{{ vrb_default_admin_user }}"
+    password: "{{ vrealizeb_itfm_root_password }}"
+    HEADER_Content-Type: "application/xml"
+    body:  "{{ lookup('file',sso_request_body_file) }}"
+    validate_certs: no
+    status_code: 200
