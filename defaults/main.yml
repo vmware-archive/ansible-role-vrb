@@ -18,3 +18,5 @@ vrealizeb_ova_location: "/var/www/html/downloads"
 
 ##### this is where the UI installs the ovftool this by default
 ovftool: /usr/local/bin/ovftool/ovftool
+
+vrb_ssh_enabled: True

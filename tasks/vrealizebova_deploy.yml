@@ -34,6 +34,7 @@
     '--datastore={{vrealizeb_datastore}}'
     '--network={{vrealizeb_network}}'
     '--prop:itfm_root_password={{vrealizeb_itfm_root_password }}'
+    '--prop:itfm_ssh_enabled={{ vrb_ssh_enabled }}'
     '{{vrealizeb_ova_location }}/{{vrealizeb_ova}}'
     'vi://{{ mgmt_vc_username | urlencode }}:{{ mgmt_vc_password | urlencode }}@{{ mgmt_vc }}:443/{{ mgmt_vc_datacenter }}/host/{{ mgmt_vc_cluster }}'
   tags:
