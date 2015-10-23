@@ -35,10 +35,10 @@
     '--network={{vrealizeb_network}}'
     '--prop:itfm_root_password={{vrealizeb_itfm_root_password }}'
     '--prop:itfm_ssh_enabled={{ vrb_ssh_enabled }}'
-    '--prop:vami.gateway.vRealize_Business_Standard=192.168.110.1'
-    '--prop:vami.DNS.vRealize_Business_Standard=192.168.110.10'
+    '--prop:vami.gateway.vRealize_Business_Standard={{ vrb_gateway_address }}'
+    '--prop:vami.DNS.vRealize_Business_Standard={{ vrb_dns_address }'
     '--prop:vami.ip0.vRealize_Business_Standard={{ vrb_ip_address }}'
-    '--prop:vami.netmask0.vRealize_Business_Standard=255.255.255.0'
+    '--prop:vami.netmask0.vRealize_Business_Standard={{ vrb_ip_netmask }}'
     '{{vrealizeb_ova_location }}/{{vrealizeb_ova}}'
     'vi://{{ mgmt_vc_username | urlencode }}:{{ mgmt_vc_password | urlencode }}@{{ mgmt_vc }}:443/{{ mgmt_vc_datacenter }}/host/{{ mgmt_vc_cluster }}'
   tags:
