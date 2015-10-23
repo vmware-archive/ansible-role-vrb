@@ -13,7 +13,7 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 #
-- name: Notice -- Waiting on vROps CASA API availability.
+- name: Notice -- Waiting on vRBusiness API availability.
   wait_for: host="{{ vrb_ip_address }}" port=5480 delay=30 timeout=3600
 
 # TODO: this really is a 'timed delay' and should actually check the DB port.

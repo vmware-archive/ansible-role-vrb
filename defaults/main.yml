@@ -18,7 +18,7 @@ vrealizeb_ova_location: "/var/www/html/downloads"
 
 ##### this is where the UI installs the ovftool this by default
 ovftool: /usr/local/bin/ovftool/ovftool
-sso_request_body_file: /tmp/vrb/sso-request-body.xml
+sso_request_body_file: /tmp/sso-request-body.xml
 
 vrb_ssh_enabled: True
 vrb_default_admin_user: root
