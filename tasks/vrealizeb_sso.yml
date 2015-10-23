@@ -38,12 +38,14 @@
     validate_certs: no
     timeout: 120
     status_code: 200
-    register: register_result
+  register: register_result
+
+- debug: msg="{{ register_result }}"
 
 # TODO: this really is a 'timed delay' and should actually check vrb's status
 - name: Notice -- Waiting briefly for vrb to settle
   wait_for: host="{{ vrb_ip_address }}" port=5480 delay=120 timeout=600
-  when: register_result.status != '200'
+  when: register_result.status != 200
 
 # Need to call the same service twice due to a bug un vra. The first time it
 # returns an error saying you have to accept the vra certificate
@@ -60,7 +62,7 @@
     validate_certs: no
     timeout: 120
     status_code: 200
-    when: register_result.status != '200'
+  when: register_result.status != 200
 
 # TODO: this really is a 'timed delay' and should actually check vrb's status
 - name: Notice -- Waiting briefly for vrb to settle
