@@ -13,18 +13,52 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 #
+- name: Notice -- Waiting on vROps CASA API availability.
+  wait_for: host="{{ vrb_ip_address }}" port=5480 delay=30 timeout=3600
+
+# TODO: this really is a 'timed delay' and should actually check the DB port.
+- name: Notice -- Waiting briefly for databases to settle.
+  wait_for: host="{{ vrb_ip_address }}" port=5480 delay=30 timeout=600
+
 - name: create sso request
   template:
     src: sso_request_body.xml
     dest: "{{ sso_request_body_file }}"
 
-- name: set admin password
+- name: register with vra
   uri:
-    url: https://{{ vrb_node_ip }}:5480/service/sso/configure-page.py
+    url: https://{{ vrb_host_name }}:5480/service/sso/config-page.py
     method: POST
+    force_basic_auth: yes
+    follow_redirects: all
     user: "{{ vrb_default_admin_user }}"
     password: "{{ vrealizeb_itfm_root_password }}"
     HEADER_Content-Type: "application/xml"
     body:  "{{ lookup('file',sso_request_body_file) }}"
     validate_certs: no
+    timeout: 120
     status_code: 200
+
+# TODO: this really is a 'timed delay' and should actually check vrb's status
+- name: Notice -- Waiting briefly for vrb to settle
+  wait_for: host="{{ vrb_ip_address }}" port=5480 delay=120 timeout=600
+
+# Need to call the same service twice due to a bug un vra. The first time it
+# returns an error saying you have to accept the vra certificate
+- name: register with vra
+  uri:
+    url: https://{{ vrb_host_name }}:5480/service/sso/config-page.py
+    method: POST
+    force_basic_auth: yes
+    follow_redirects: all
+    user: "{{ vrb_default_admin_user }}"
+    password: "{{ vrealizeb_itfm_root_password }}"
+    HEADER_Content-Type: "application/xml"
+    body:  "{{ lookup('file',sso_request_body_file) }}"
+    validate_certs: no
+    timeout: 120
+    status_code: 200
+
+# TODO: this really is a 'timed delay' and should actually check vrb's status
+- name: Notice -- Waiting briefly for vrb to settle
+  wait_for: host="{{ vrb_ip_address }}" port=5480 delay=120 timeout=600
