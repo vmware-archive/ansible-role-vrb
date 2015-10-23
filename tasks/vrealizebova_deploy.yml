@@ -21,6 +21,7 @@
     vcenter_password: "{{ mgmt_vc_password }}"
     vcenter_port: "{{ mgmt_vc_port }}"
     vm_name: "{{ vrealizeb_name }}"
+  register: vrb_node_exists
 
 - name: deploy VRB OVA
   shell: >
@@ -44,7 +45,9 @@
   tags:
     - ova
   register: ovf_status
+  when: vrb_node_exists.msg == 'Appliance does not exist.'
 
 - name: debug ovf_status
   debug: var=ovf_status
   failed_when: ovf_status.rc != 0
+  when: vrb_node_exists.msg == 'Appliance does not exist.'
