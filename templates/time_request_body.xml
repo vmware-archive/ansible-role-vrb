@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<request>
+	<locale>en-US</locale>
+	<action>submit</action>
+	<requestid>timeSyncUpdate</requestid>
+	<value id="timeSync.mode">{{vrb_time_sync_mode}}</value>
+	<value id="timeServer1">{{vrb_time_server1}}</value>
+	<value id="timeServer2">{{vrb_time_server2}}</value>
+	<value id="timeServer3">{{vrb_time_server3}}</value>
+	<value id="timeServer4">{{vrb_time_server4}}</value>
+	<value id="timeServer5">{{vrb_time_server5}}</value>
+</request>

@@ -19,3 +19,9 @@
 
 - name: configure vRB SSO
   include: vrealizeb_sso.yml tags=vrb_sso
+- name: toggle vRB SSH
+  include: vrealizeb_toggle_ssh.yml tags=vrb_toggle_ssh
+- name: configure vRB Time Settings
+  include: vrealizeb_time.yml tags=vrb_time_settings
+- name: configure vRB SSL Certificates
+  include: vrealizeb_ssl_certificate.yml tags=vrb_ssl_certificate

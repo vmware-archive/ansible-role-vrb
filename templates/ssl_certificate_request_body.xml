@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<request>
+	<locale>en-US</locale>
+	<action>submit</action>
+	<requestid>sslCertUpdate</requestid>
+	<value id="sslCert.action">{{vrb_sslcert_mode}}</value>
+	<value id="sslCert.commonName">{{vrb_sslcert_common_name}}</value>
+	<value id="sslCert.organization">{{vrb_sslcert_organization}}</value>
+	<value id="sslCert.organizationalUnit">{{vrb_sslcert_organizational_unit}}</value>
+	<value id="sslCert.country">{{vrb_sslcert_country}}</value>
+	<value id="sslCert.encoded.key">{{vrb_sslcert_encoded_key}}</value>
+	<value id="sslCert.encoded.certChain">{{vrb_sslcert_encoded_certchain}}</value>
+	<value id="sslCert.passphrase">{{vrb_sslcert_passphrase}}</value>
+</request>

@@ -2,9 +2,9 @@
   <locale>en-US</locale>
   <action>submit</action>
   <requestid>ssoUpdate</requestid>
-  <value id="cafe.host">{{vra_host_name}}</value>
-  <value id="sso.tenant">vsphere.local</value>
-  <value id="sso.admin">administrator</value>
-  <value id="sso.password">{{vra_root_password}}</value>
+  <value id="cafe.host">{{vrb_cafe_host}}</value>
+  <value id="sso.tenant">{{vrb_sso_tenant}}</value>
+  <value id="sso.admin">{{vrb_sso_admin}}</value>
+  <value id="sso.password">{{vrb_sso_password}}</value>
   <value id="cafe.component.registry.cert.isAccepted">true</value>
 </request>

@@ -18,7 +18,32 @@ vrealizeb_ova_location: "/var/www/html/downloads"
 
 ##### this is where the UI installs the ovftool this by default
 ovftool: /usr/local/bin/ovftool/ovftool
+### Tmp file locations
 sso_request_body_file: /tmp/sso-request-body.xml
+time_request_body_file: /tmp/time-request-body.xml
+toggle_ssh_request_body_file: /tmp/toggle-ssh-request-body.xml
+ssl_certificate_request_body_file: /tmp/ssl-certificate-request-body.xml
+vrb_ip_address: 192.168.100.121
+vrb_sslcert_common_name: localhost.localdom
+vrb_sslcert_organization: VMWare Incorporated
+vrb_sslcert_organizational_unit: PSO
+vrb_sslcert_country: US
+#### For PEM Encoded SSL Certificate
+vrb_sslcert_encoded_key:
+vrb_sslcert_encoded_certchain:
+vrb_sslcert_encoded_passphrase:
 
-vrb_ssh_enabled: True
-vrb_default_admin_user: root
+### For VRA SSO
+vrb_cafe_host: vra16.corp.local
+vrb_sso_tenant: vpshere.local
+vrb_sso_admin: administrator
+vrb_sso_password: VMWare1!
+
+## For Time Server settings
+vrb_time_sync_mode: Use Time Server
+vrb_time_server1: 192.168.110.10
+vrb_time_server2:
+vrb_time_server3:
+vrb_time_server4:
+vrb_time_server5:
+
