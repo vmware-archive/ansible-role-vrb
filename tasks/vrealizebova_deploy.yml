@@ -14,21 +14,44 @@
 #  limitations under the License.
 #
 ---
-- name: Check if vrb already exists
-  does_vm_exist:
-    vcenter_host: "{{ mgmt_vc }}"
-    vcenter_user: "{{ mgmt_vc_username }}"
-    vcenter_password: "{{ mgmt_vc_password }}"
-    vcenter_port: "{{ mgmt_vc_port }}"
-    vm_name: "{{ vrealizeb_name }}"
-  register: vrb_node_exists
+- name: Check if Vrb Instance exists
+  ignore_errors: yes
+  local_action:
+    module: vcenter_query
+    host: "{{ mgmt_vc }}"
+    login: "{{ mgmt_vc_username }}"
+    password: "{{ mgmt_vc_password }}"
+    port: "{{ mgmt_vc_port }}"
+    resourcename: "{{ vrealizeb_name }}"
+    resourcevarname: "{{vrealizeb_name }}"
+    resourcetype: 'vm'
+    getfacts: 'yes'
+  register: vrb_exists
+
+- name: debug checking vra Instance if exists
+  debug: var=vrb_exists
+  when: vrb_exists.changed is defined
+
+- name: Destroying existing appliance
+  ignore_errors: True
+  vsphere_guest:
+    vcenter_hostname: "{{ mgmt_vc }}"
+    username: "{{ mgmt_vc_username }}"
+    password: "{{ mgmt_vc_password }}"
+    guest: "{{ vrealizeb_name }}"
+    state: absent
+    force: yes
+  register: vrb_deleted
+  when: vrb_exists.changed is defined and "{{vrb_delete}}"== "1"
+
+- name: debug delete instance
+  debug: var=vrb_deleted
 
 - name: deploy VRB OVA
   shell: >
     {{ ovftool }}
     '--name={{ vrealizeb_name }}'
     --acceptAllEulas
-    --powerOn
     --allowExtraConfig
     --noSSLVerify
     --diskMode=thin
@@ -44,10 +67,37 @@
     'vi://{{ mgmt_vc_username | urlencode }}:{{ mgmt_vc_password | urlencode }}@{{ mgmt_vc }}:443/{{ mgmt_vc_datacenter }}/host/{{ mgmt_vc_cluster }}'
   tags:
     - ova
-  register: ovf_status
-  when: vrb_node_exists.msg == 'Appliance does not exist.'
+  register: vrb_ova_deploy
+  when: not vrb_exists.changed is defined or vrb_deleted.changed
 
-- name: debug ovf_status
-  debug: var=ovf_status
-  failed_when: ovf_status.rc != 0
-  when: vrb_node_exists.msg == 'Appliance does not exist.'
+- name: Check if Vra Instance is created in vcenter
+  ignore_errors: yes
+  local_action:
+    module: vcenter_query
+    host: "{{ mgmt_vc }}"
+    login: "{{ mgmt_vc_username }}"
+    password: "{{ mgmt_vc_password }}"
+    port: "{{ mgmt_vc_port }}"
+    resourcename: "{{ vrealizeb_name }}"
+    resourcevarname: "{{vrealizeb_name }}"
+    resourcetype: 'vm'
+    getfacts: 'yes'
+  register: vrb_created
+  when: not vrb_exists.changed is defined or vrb_deleted.changed
+
+- name: debug checking vrb Instance is created
+  debug: var=vrb_created
+
+- name: Start vrb
+  vsphere_guest:
+    vcenter_hostname: "{{ mgmt_vc }}"
+    username: "{{ mgmt_vc_username }}"
+    password: "{{ mgmt_vc_password }}"
+    guest: "{{ vrealizeb_name }}"
+    state: powered_on
+    force: yes
+  register: vrb_started
+  when: (not vrb_exists.changed is defined or vrb_deleted.changed)and "{{vrb_poweron}}"== "1"
+
+- name: debug checking vrb Instance is created
+  debug: var=vrb_started

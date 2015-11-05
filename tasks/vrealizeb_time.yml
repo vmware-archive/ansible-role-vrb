@@ -14,11 +14,11 @@
 #  limitations under the License.
 #
 - name: Notice -- Waiting on vRBusiness API availability.
-  wait_for: host="{{ vrb_ip_address }}" port=5480 delay=30 timeout=3600
+  wait_for: host="{{ vrb_host_name }}" port=5480 delay=30 timeout=3600
 
 # TODO: this really is a 'timed delay' and should actually check the DB port.
 - name: Notice -- Waiting briefly for databases to settle.
-  wait_for: host="{{ vrb_ip_address }}" port=5480 delay=30 timeout=600
+  wait_for: host="{{vrb_host_name}}" port=5480 delay=30 timeout=600
 
 - name: create time settings
   template:
@@ -44,5 +44,5 @@
 
 # TODO: this really is a 'timed delay' and should actually check vrb's status
 - name: Notice -- Waiting briefly for vrb to settle
-  wait_for: host="{{ vrb_ip_address }}" port=5480 delay=120 timeout=600
+  wait_for: host="{{ vrb_host_name }}" port=5480 delay=120 timeout=600
   when: register_result.status != 200

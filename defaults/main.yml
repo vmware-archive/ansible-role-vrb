@@ -22,6 +22,8 @@ ovftool: /usr/local/bin/ovftool/ovftool
 sso_request_body_file: /tmp/sso-request-body.xml
 time_request_body_file: /tmp/time-request-body.xml
 toggle_ssh_request_body_file: /tmp/toggle-ssh-request-body.xml
+network_request_body_file: /tmp/network-request-body.xml
+http_proxy_request_body_file: /tmp/http-proxy-body.xml
 ssl_certificate_request_body_file: /tmp/ssl-certificate-request-body.xml
 vrb_ip_address: 192.168.100.121
 vrb_sslcert_common_name: localhost.localdom
@@ -46,4 +48,18 @@ vrb_time_server2:
 vrb_time_server3:
 vrb_time_server4:
 vrb_time_server5:
+#For Http Proxy
+vrb_http_proxy_ip:
+vrb_http_proxy_port:
+vrb_http_proxy_username:
+vrb_http_proxy_password:
+
+#For Network
+vrb_host_name: 192.168.110.12
+vrb_ip_address: 192.168.110.12
+vrb_gateway_address: 192.168.110.1
+vrb_ip_netmask: 255.255.255.0
+vrb_ipv6_address: fe80::2:3:4:5:6
+vrb_ipv6_prefix: 48
+vrb_ipv6_gateway: fe80::1
 
