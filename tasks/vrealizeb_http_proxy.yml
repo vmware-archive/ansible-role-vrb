@@ -40,18 +40,4 @@
     status_code: 200
   register: register_result
 
-- debug: msg= "{{ register_result }}"
-
-- name: Restart vrb
-  vsphere_guest:
-    vcenter_hostname: "{{ mgmt_vc }}"
-    username: "{{ mgmt_vc_username }}"
-    password: "{{ mgmt_vc_password }}"
-    guest: "{{ vrealizeb_name }}"
-    state: restarted
-  register: vrb_restarted
-  when: register_result.status == 200
-
-- debug: msg= "{{vrb_restarted }}"
-  when: register_result.status == 200
-
+- debug: msg="{{ register_result }}"

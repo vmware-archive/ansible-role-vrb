@@ -13,15 +13,23 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 #
+- name: create DNS template
+  template:
+    src: network_dns_settings_request_body.xml
+    dest: "{{ dns_request_body_file }}"
+- name: create Server template
+  template:
+    src: network_host_settings_request_body.xml
+    dest: "{{host_request_body_file }}"
 - name: create static v4 static  v6 template
   template:
-    src: network_request_staticv4v6_body.xml
+    src: network_staticv4v6_request_body.xml
     dest: "{{ network_request_body_file }}"
   when:  vrb_address_version== 'STATICV4+STATICV6'
 
 - name: create static v4 Auto V6 template
   template:
-    src: network_request_staticv4autov6_body.xml
+    src: network_staticv4autov6_request_body.xml
     dest: "{{ network_request_body_file }}"
   when:  vrb_address_version== 'STATICV4+AUTOV6'
 
@@ -33,6 +41,48 @@
 
 - name: Notice -- Waiting on vRBusiness API availability.
   wait_for: host="{{ vrb_host_name }}" port=5480 delay=30 timeout=3600
+
+# TODO: this really is a 'timed delay' and should actually check the DB port.
+- name: Notice -- Waiting briefly for databases to settle.
+  wait_for: host="{{vrb_host_name}}" port=5480 delay=30 timeout=600
+
+- name: Register with vrb and send the dns changes
+  uri:
+    url: https://{{ vrb_host_name}}:5480/cimom
+    method: POST
+    force_basic_auth: yes
+    follow_redirects: all
+    user: "{{ vrb_default_admin_user }}"
+    password: "{{ vrealizeb_itfm_root_password }}"
+    HEADER_Content-Type: "application/xml"
+    body:  "{{ lookup('file',dns_request_body_file) }}"
+    validate_certs: no
+    timeout: 120
+    status_code: 200
+  register: register_dns
+
+- debug: msg="{{ register_dns }}"
+
+# TODO: this really is a 'timed delay' and should actually check the DB port.
+- name: Notice -- Waiting briefly for databases to settle.
+  wait_for: host="{{vrb_host_name}}" port=5480 delay=30 timeout=600
+
+- name: Register with vrb and send the host changes
+  uri:
+    url: https://{{ vrb_host_name}}:5480/cimom
+    method: POST
+    force_basic_auth: yes
+    follow_redirects: all
+    user: "{{ vrb_default_admin_user }}"
+    password: "{{ vrealizeb_itfm_root_password }}"
+    HEADER_Content-Type: "application/xml"
+    body:  "{{ lookup('file',host_request_body_file) }}"
+    validate_certs: no
+    timeout: 120
+    status_code: 200
+  register: register_server
+
+- debug: msg="{{ register_server }}"
 
 # TODO: this really is a 'timed delay' and should actually check the DB port.
 - name: Notice -- Waiting briefly for databases to settle.
@@ -54,16 +104,4 @@
   ignore_errors: yes
   register: register_result
 
-- debug: msg= "{{ register_result }}"
-
-- name: Restart vrb
-  vsphere_guest:
-    vcenter_hostname: "{{ mgmt_vc }}"
-    username: "{{ mgmt_vc_username }}"
-    password: "{{ mgmt_vc_password }}"
-    guest: "{{ vrealizeb_name }}"
-    state: restarted
-  register: vrb_restarted
-
-- debug: msg="{{ vrb_restarted }}"
-
+- debug: msg="{{ register_result }}"

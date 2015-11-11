@@ -15,13 +15,13 @@
 					</INSTANCENAME>
 				</LOCALINSTANCEPATH>
 				<PARAMVALUE NAME="ProxyServer" PARAMTYPE="string">
-					<VALUE>{{vrb_http_proxy_ip}}</VALUE>
+					<VALUE>{{vrb_http_proxy_server}}</VALUE>
 				</PARAMVALUE>
 				<PARAMVALUE NAME="ProxyPortNumber" PARAMTYPE="string">
 						<VALUE>{{vrb_http_proxy_port}}</VALUE>
 				</PARAMVALUE>
 				<PARAMVALUE NAME="Username" PARAMTYPE="string">
-					<VALUE>{{vrb_http_proxy_username}}</VALUE>
+					<VALUE>{{vrb_http_proxy_user}}</VALUE>
 				</PARAMVALUE>
 				<PARAMVALUE NAME="Password" PARAMTYPE="string">
 					<VALUE>{{vrb_http_proxy_password}}</VALUE>

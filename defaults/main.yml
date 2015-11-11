@@ -22,6 +22,8 @@ ovftool: /usr/local/bin/ovftool/ovftool
 sso_request_body_file: /tmp/sso-request-body.xml
 time_request_body_file: /tmp/time-request-body.xml
 toggle_ssh_request_body_file: /tmp/toggle-ssh-request-body.xml
+dns_request_body_file: /tmp/network-dns-request-body.xml
+host_request_body_file: /tmp/network-host-request-body.xml
 network_request_body_file: /tmp/network-request-body.xml
 http_proxy_request_body_file: /tmp/http-proxy-body.xml
 ssl_certificate_request_body_file: /tmp/ssl-certificate-request-body.xml
