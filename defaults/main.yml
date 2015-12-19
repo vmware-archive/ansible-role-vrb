@@ -14,10 +14,12 @@
 #  limitations under the License.
 #
 
+##### where the vRB OVA file exists.
 vrealizeb_ova_location: "/var/www/html/downloads"
 
 ##### this is where the UI installs the ovftool this by default
 ovftool: /usr/local/bin/ovftool/ovftool
+
 ### Tmp file locations
 sso_request_body_file: /tmp/sso-request-body.xml
 time_request_body_file: /tmp/time-request-body.xml
@@ -32,6 +34,7 @@ vrb_sslcert_common_name: localhost.localdom
 vrb_sslcert_organization: VMWare Incorporated
 vrb_sslcert_organizational_unit: PSO
 vrb_sslcert_country: US
+
 #### For PEM Encoded SSL Certificate
 vrb_sslcert_encoded_key:
 vrb_sslcert_encoded_certchain:
@@ -50,6 +53,7 @@ vrb_time_server2:
 vrb_time_server3:
 vrb_time_server4:
 vrb_time_server5:
+
 #For Http Proxy
 vrb_http_proxy_ip:
 vrb_http_proxy_port:
